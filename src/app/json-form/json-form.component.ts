@@ -1,9 +1,12 @@
 import {
   Component,
-  OnInit,
+  OnChanges,
+  SimpleChanges,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+
+import { FormGroup, FormBuilder, Validator } from '@angular/forms';
 interface JsonFormValidators {
   min?: number;
   max?: number;
@@ -39,9 +42,23 @@ export interface JsonFormData {
   styleUrls: ['./json-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JsonFormComponent implements OnInit {
+export class JsonFormComponent implements OnChanges {
   @Input()
   jsonFormData!: JsonFormData;
-  constructor() {}
-  ngOnInit() {}
+
+  public myForm: FormGroup = this.fb.group({});
+
+  constructor(private fb: FormBuilder) {}
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['jsonFormData'].firstChange) {
+      // console.log(this.jsonFormData);
+      this.createForm(this.jsonFormData.controls);
+    }
+  }
+
+  createForm(controls: JsonFormControls[]) {
+    for (const control of controls) {
+      this.myForm.addControl(control.name, this.fb.control(''));
+    }
+  }
 }
