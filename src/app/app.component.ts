@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { JsonFormData } from './json-form/json-form.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'angular-reactive-form';
+export class AppComponent implements OnInit {
+  public formData!: JsonFormData;
+  constructor(private http: HttpClient) {}
+  ngOnInit(): void {
+    this.http.get('/assets/my-form.json').subscribe((fd) => {
+      this.formData = fd as JsonFormData;
+    });
+  }
 }
