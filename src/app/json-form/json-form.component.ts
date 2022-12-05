@@ -106,4 +106,8 @@ export class JsonFormComponent implements OnChanges {
       );
     }
   }
+  onSubmit() {
+    console.log('Form valid: ', this.myForm.valid);
+    console.log('Form values: ', this.myForm.value);
+  }
 }
