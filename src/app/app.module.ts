@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { JsonFormComponent } from './json-form/json-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    JsonFormComponent
   ],
   imports: [
     BrowserModule,
